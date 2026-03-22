@@ -1,0 +1,198 @@
+.search-panel {
+    background: $color-white;
+    border-radius: $border-radius-xl;
+    padding: $spacing-md;
+    margin-bottom: $spacing-lg;
+    box-shadow: $shadow-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    
+    @media (min-width: $breakpoint-mobile) {
+        flex-direction: row;
+        align-items: center;
+        padding: $spacing-lg;
+    }
+    
+    &__auto-btn {
+        background: $color-gray-100;
+        border: 1px solid $color-gray-200;
+        color: $color-gray-700;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: $font-size-lg;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        
+        i {
+            font-size: 18px;
+            margin: 0;
+        }
+        
+        &:hover {
+            background: $color-primary;
+            border-color: $color-primary;
+            color: $color-white;
+            transform: translateY(-1px);
+        }
+        
+        &:active {
+            transform: translateY(0);
+        }
+    }
+    
+    &__input-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+        
+        @media (min-width: $breakpoint-mobile) {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+    
+    &__input-type {
+        padding: $spacing-sm $spacing-md;
+        border: 1px solid $color-gray-300;
+        border-radius: $border-radius-md;
+        font-size: $font-size-sm;
+        font-family: $font-family-primary;
+        background: $color-white;
+        color: $color-gray-700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        i {
+            margin-right: $spacing-xs;
+        }
+        
+        &:focus {
+            outline: none;
+            border-color: $color-primary;
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+        }
+    }
+    
+    &__fields {
+        flex: 1;
+    }
+    
+    &__city-mode {
+        display: none;
+        position: relative;
+        
+        &--active {
+            display: block;
+        }
+        
+        i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $color-gray-500;
+            font-size: 14px;
+            pointer-events: none;
+        }
+    }
+    
+    &__coords-mode {
+        display: none;
+        
+        &--active {
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-sm;
+            
+            @media (min-width: $breakpoint-mobile) {
+                flex-direction: row;
+                gap: $spacing-md;
+            }
+        }
+    }
+    
+    &__coords-input {
+        flex: 1;
+        position: relative;
+        
+        i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $color-gray-500;
+            font-size: 14px;
+            pointer-events: none;
+        }
+    }
+    
+    &__input {
+        width: 100%;
+        padding: $spacing-sm $spacing-md;
+        border: 1px solid $color-gray-300;
+        border-radius: $border-radius-md;
+        font-size: $font-size-md;
+        font-family: $font-family-primary;
+        transition: all 0.2s ease;
+        
+        &:focus {
+            outline: none;
+            border-color: $color-primary;
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+        }
+        
+        &::placeholder {
+            color: $color-gray-500;
+        }
+    }
+    
+    &__input--city {
+        padding-left: 36px;
+    }
+    
+    &__input--lat,
+    &__input--lon {
+        flex: 1;
+        padding-left: 36px;
+    }
+    
+    &__search-btn {
+        background: $color-primary;
+        border: none;
+        color: $color-white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: $font-size-md;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        
+        i {
+            font-size: 18px;
+            margin: 0;
+        }
+        
+        &:hover {
+            background: $color-primary-dark;
+            transform: translateY(-1px);
+            box-shadow: $shadow-sm;
+        }
+        
+        &:active {
+            transform: translateY(0);
+        }
+    }
+}

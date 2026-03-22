@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather memes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/style/css/style.css">
+</head>
+<body>
+    <div class="app">
+        <div class="container">
+            <div class="search-panel">
+                <button class="search-panel__auto-btn" type="button">
+                    <i class="fas fa-crosshairs"></i>
+                </button>
+                
+                <div class="search-panel__input-group">
+                    <select class="search-panel__input-type" id="inputType">
+                        <option value="city" selected><i class="fas fa-city"></i> city name</option>
+                        <option value="coords"><i class="fas fa-map-pin"></i> coordinates</option>
+                    </select>
+                    
+                    <div class="search-panel__fields">
+                        <div class="search-panel__city-mode search-panel__city-mode--active" id="cityMode">
+                            <i class="fas fa-search-location"></i>
+                            <input type="text" class="search-panel__input search-panel__input--city" placeholder="Enter city name" id="cityInput">
+                        </div>
+                        <div class="search-panel__coords-mode" id="coordsMode">
+                            <div class="search-panel__coords-input">
+                                <i class="fas fa-arrow-up"></i>
+                                <input type="text" class="search-panel__input search-panel__input--lat" placeholder="Latitude" id="latInput">
+                            </div>
+                            <div class="search-panel__coords-input">
+                                <i class="fas fa-arrow-right"></i>
+                                <input type="text" class="search-panel__input search-panel__input--lon" placeholder="Longitude" id="lonInput">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="search-panel__search-btn" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="location-header">
+                <h2 class="location-header__title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="location-header__city" id="cityName">Hrodna</span>, <span class="location-header__country" id="countryCode">BY</span>
+                </h2>
+                <div class="location-header__datetime">
+                    <div class="location-header__time-wrapper">
+                        <i class="far fa-clock"></i>
+                        <span class="location-header__time" id="currentTime">19:55</span>
+                    </div>
+                    <div class="location-header__date-wrapper">
+                        <i class="far fa-calendar-alt"></i>
+                        <span class="location-header__date" id="currentDate">22.03.2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weather-meme-layout">
+                <div class="weather-card">
+                    <div class="weather-card__primary">
+                        <div class="weather-card__temp">
+                            <span class="weather-card__temp-value" id="tempValue">+8</span>°C
+                        </div>
+                        <div class="weather-card__icon">
+                            <img src="https://openweathermap.org/img/wn/02d.png" alt="weather icon" width="80" height="80" id="weatherIcon">
+                        </div>
+                        <div class="weather-card__desc">
+                            <div class="weather-card__category" id="weatherCategory">Clouds</div>
+                            <div class="weather-card__sub" id="weatherDescription">scattered clouds</div>
+                        </div>
+                        <div class="weather-card__feels">
+                            <i class="fas fa-temperature-low"></i>
+                            Feels like <span class="weather-card__feels-value" id="feelsLike">+6</span>°C
+                        </div>
+                    </div>
+
+                    <div class="weather-details">
+                        <div class="weather-details__col">
+                            <div class="weather-details__item">
+                                <i class="fas fa-wind"></i>
+                                <span class="weather-details__label">Wind:</span>
+                                <span class="weather-details__value">
+                                    <span class="weather-details__wind-speed" id="windSpeed">2.74</span> m/s, 
+                                    <span class="weather-details__wind-dir" id="windDirection">N</span>
+                                </span>
+                            </div>
+                            <div class="weather-details__item">
+                                <i class="fas fa-tint"></i>
+                                <span class="weather-details__label">Humidity:</span>
+                                <span class="weather-details__value">
+                                    <span class="weather-details__humidity" id="humidity">56</span>%
+                                </span>
+                            </div>
+                            <div class="weather-details__item">
+                                <i class="fas fa-gauge-high"></i>
+                                <span class="weather-details__label">Pressure:</span>
+                                <span class="weather-details__value">
+                                    <span class="weather-details__pressure" id="pressure">1022</span> hPa
+                                </span>
+                            </div>
+                        </div>
+                        <div class="weather-details__col">
+                            <div class="weather-details__item">
+                                <i class="fas fa-cloud"></i>
+                                <span class="weather-details__label">Clouds:</span>
+                                <span class="weather-details__value">
+                                    <span class="weather-details__clouds" id="clouds">42</span>%
+                                </span>
+                            </div>
+                            <div class="weather-details__item">
+                                <i class="fas fa-eye"></i>
+                                <span class="weather-details__label">Visibility:</span>
+                                <span class="weather-details__value">
+                                    <span class="weather-details__visibility" id="visibility">10000</span> m
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sun-times">
+                        <div class="sun-times__item">
+                            <i class="fas fa-sunrise"></i>
+                            <span class="sun-times__label">sunrise:</span>
+                            <span class="sun-times__value" id="sunrise">07:22</span>
+                        </div>
+                        <div class="sun-times__item">
+                            <i class="fas fa-sunset"></i>
+                            <span class="sun-times__label">sunset:</span>
+                            <span class="sun-times__value" id="sunset">19:40</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="meme-card">
+                    <div class="meme-card__location-info">
+                        <div class="meme-card__location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="meme-card__city" id="memeCityName">Hrodna</span>, <span class="meme-card__country" id="memeCountryCode">BY</span>
+                        </div>
+                        <div class="meme-card__datetime">
+                            <div class="meme-card__time-wrapper">
+                                <i class="far fa-clock"></i>
+                                <span class="meme-card__time" id="memeCurrentTime">19:55</span>
+                            </div>
+                            <div class="meme-card__date-wrapper">
+                                <i class="far fa-calendar-alt"></i>
+                                <span class="meme-card__date" id="memeCurrentDate">22.03.2026</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="meme-card__image-wrapper">
+                        <img class="meme-card__image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo8U-kCEbDoCz7UMD__8oy9BMUNSJfxVyn6g&s" alt="weather meme" id="memeImage">
+                    </div>
+                    <div class="meme-card__text" id="memeText">
+                        <i class="fas fa-quote-left"></i>
+                        meme text meme text meme text meme text meme text meme
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    <div class="meme-card__footer">
+                        <i class="fas fa-cloud-sun"></i> Weather memes <i class="fas fa-smile-wink"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
