@@ -8,7 +8,7 @@ class WeatherService {
     constructor() {
     this.apiKey = process.env.OPENWEATHER_API_KEY;
     this.baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
-    this.units = 'metric'; // Для получения температуры в Цельсиях
+    this.units = 'metric';
   }
 
   /**
@@ -33,7 +33,6 @@ class WeatherService {
    */
   async getWeatherByCoords(lat, lon) {
     try {
-      // Проверка валидности координат
       if (lat === undefined || lon === undefined) {
         throw new Error('Координаты не могут быть пустыми');
       }
@@ -49,7 +48,6 @@ class WeatherService {
 
       const data = response.data;
 
-      // Формируем объект с нужными полями
       return {
         temp_celsius: Math.round(data.main.temp),
         feels_like: Math.round(data.main.feels_like),
@@ -73,7 +71,6 @@ class WeatherService {
     } catch (error) {
       console.error('Ошибка при получении погоды:', error.message);
       
-      // Обработка ошибки от API OpenWeatherMap
       if (error.response) {
         console.error('Статус ошибки:', error.response.status);
         console.error('Данные ошибки:', error.response.data);
@@ -100,18 +97,14 @@ class WeatherService {
         throw new Error('Название города не может быть пустым');
       }
 
-      // Получаем координаты через geocodingService
       const coords = await geocodingService.getCoordinatesByCity(city);
       
       if (!coords) {
         throw new Error(`Город "${city}" не найден`);
       }
 
-      // Получаем погоду по координатам
       const weatherData = await this.getWeatherByCoords(coords.lat, coords.lon);
       
-      // Добавляем название города, которое было введено пользователем
-      // (на случай, если API вернул другое название)
       weatherData.requested_city = city;
       
       return weatherData;

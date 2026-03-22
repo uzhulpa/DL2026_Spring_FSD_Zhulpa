@@ -14,11 +14,9 @@ class WeatherController {
       const { city, lat, lon, ip } = req.query;
       
       let coordinates = null;
-      let locationMethod = ''; // Для логирования
+      let locationMethod = '';
       
-      // 1. Определяем координаты на основе входных параметров
       if (city) {
-        // Получаем координаты по названию города
         locationMethod = `city: ${city}`;
         coordinates = await geocodingService.getCoordinatesByCity(city);
         
@@ -30,14 +28,12 @@ class WeatherController {
         }
         
       } else if (lat && lon) {
-        // Используем переданные координаты
         locationMethod = `coordinates: ${lat}, ${lon}`;
         coordinates = {
           lat: parseFloat(lat),
           lon: parseFloat(lon)
         };
         
-        // Проверяем валидность координат
         if (isNaN(coordinates.lat) || isNaN(coordinates.lon)) {
           return res.status(400).json({
             error: 'Неверные координаты',
@@ -46,7 +42,6 @@ class WeatherController {
         }
         
       } else if (ip) {
-        // Определяем местоположение по IP
         locationMethod = `ip: ${ip}`;
         const locationInfo = await ipLocationService.getFullLocationInfo(ip);
         
@@ -56,7 +51,6 @@ class WeatherController {
         };
         
       } else {
-        // Если ничего не передано, пробуем определить по IP клиента
         locationMethod = `client ip: ${req.ip || req.connection.remoteAddress}`;
         const clientIp = req.ip || req.connection.remoteAddress || '127.0.0.1';
         const locationInfo = await ipLocationService.getFullLocationInfo(clientIp);
@@ -67,7 +61,6 @@ class WeatherController {
         };
       }
       
-      // Проверяем, что координаты получены
       if (!coordinates || !coordinates.lat || !coordinates.lon) {
         return res.status(404).json({
           error: 'Не удалось определить местоположение',
@@ -75,7 +68,6 @@ class WeatherController {
         });
       }
       
-      // 2. Получаем погоду по координатам
       let weatherData;
       try {
         weatherData = await weatherService.getWeatherByCoords(coordinates.lat, coordinates.lon);
@@ -87,17 +79,14 @@ class WeatherController {
         });
       }
       
-      // 3. Получаем мем по коду погоды
       let memeData;
       try {
         memeData = await memeService.getMemeByWeatherCode(weatherData.weather_code);
       } catch (memeError) {
         console.error('Ошибка при получении мема:', memeError.message);
-        // Если не удалось получить мем, используем дефолтный
         memeData = memeService.getDefaultMeme();
       }
       
-      // 4. Возвращаем успешный ответ
       res.json({
         success: true,
         location: {
@@ -114,10 +103,8 @@ class WeatherController {
       });
       
     } catch (error) {
-      // Обработка различных типов ошибок
       console.error('Ошибка в WeatherController.getWeather:', error.message);
       
-      // Определяем тип ошибки и отправляем соответствующий статус
       if (error.message.includes('не найден') || error.message.includes('not found')) {
         return res.status(404).json({
           error: 'Не найдено',
@@ -139,7 +126,6 @@ class WeatherController {
         });
       }
       
-      // Общая ошибка сервера
       res.status(500).json({
         error: 'Внутренняя ошибка сервера',
         message: 'Произошла ошибка при обработке запроса. Попробуйте позже.'
@@ -161,7 +147,6 @@ class WeatherController {
       });
     }
     
-    // Перенаправляем на основной метод с параметром city
     req.query.city = city;
     return this.getWeather(req, res);
   }
@@ -180,7 +165,6 @@ class WeatherController {
       });
     }
     
-    // Перенаправляем на основной метод с параметрами lat, lon
     req.query.lat = lat;
     req.query.lon = lon;
     return this.getWeather(req, res);
