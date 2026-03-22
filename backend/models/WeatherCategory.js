@@ -10,8 +10,7 @@ const WeatherCategory = sequelize.define('WeatherCategory', {
   },
   name: {
     type: DataTypes.STRING(50),
-    allowNull: false,
-    unique: true
+    allowNull: false
   },
   weather_code: {
     type: DataTypes.SMALLINT,
