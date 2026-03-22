@@ -1,0 +1,14 @@
+.weather-meme-layout {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    
+    @media (min-width: $breakpoint-mobile) {
+        flex-direction: row;
+        gap: $spacing-xl;
+    }
+    
+    > * {
+        flex: 1;
+    }
+}
