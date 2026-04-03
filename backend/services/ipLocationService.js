@@ -6,7 +6,7 @@ config();
 class IpLocationService {
     constructor() {
     this.baseUrl = 'http://ip-api.com/json';
-    this.defaultCity = 'Minsk'; // Город по умолчанию для localhost
+    this.defaultCity = 'Minsk';
     this.defaultLat = 55.7558;
     this.defaultLon = 37.6176;
   }
@@ -27,7 +27,6 @@ class IpLocationService {
    */
   async getLocationByIp(ip) {
     try {
-      // Если IP локальный, возвращаем тестовые данные
       if (this.isLocalIp(ip)) {
         console.log('Обнаружен локальный IP, использую тестовые данные');
         return {
@@ -44,12 +43,11 @@ class IpLocationService {
         params: {
           fields: 'status,country,city,lat,lon,message'
         },
-        timeout: 5000 // Таймаут 5 секунд
+        timeout: 5000
       });
 
       const data = response.data;
 
-      // Проверяем успешность запроса
       if (data.status === 'success') {
         return {
           city: data.city,
@@ -60,13 +58,11 @@ class IpLocationService {
           isLocal: false
         };
       } else {
-        // Если запрос не успешен, возвращаем данные по умолчанию
         console.warn(`IP API вернул ошибку: ${data.message || 'Unknown error'}`);
         return this.getDefaultLocation();
       }
     } catch (error) {
       console.error('Ошибка при определении местоположения по IP:', error.message);
-      // В случае ошибки возвращаем данные по умолчанию
       return this.getDefaultLocation();
     }
   }

@@ -7,7 +7,7 @@ class GeocodingService {
   constructor() {
     this.apiKey = process.env.OPENWEATHER_API_KEY;
     this.baseUrl = 'http://api.openweathermap.org/geo/1.0/direct';
-    this.limit = 1; // Берем только первый результат
+    this.limit = 1;
   }
 
   /**
@@ -29,7 +29,6 @@ class GeocodingService {
         }
       });
 
-      // Проверяем, есть ли результаты
       if (response.data && response.data.length > 0) {
         const location = response.data[0];
         return {
@@ -38,12 +37,10 @@ class GeocodingService {
         };
       }
 
-      // Город не найден
       return null;
     } catch (error) {
       console.error('Ошибка при получении координат:', error.message);
       
-      // Обработка ошибки от API OpenWeatherMap
       if (error.response) {
         console.error('Статус ошибки:', error.response.status);
         console.error('Данные ошибки:', error.response.data);
