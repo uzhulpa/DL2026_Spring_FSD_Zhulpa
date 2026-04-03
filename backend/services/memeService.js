@@ -16,11 +16,9 @@ class MemeService {
         throw new Error('Код погоды не может быть пустым');
       }
 
-      // Вызываем статический метод модели Meme
       const meme = await Meme.getRandomByWeatherCode(weatherCode);
       
       if (!meme) {
-        // Если мем не найден, возвращаем дефолтный мем
         return this.getDefaultMeme();
       }
 
@@ -31,7 +29,6 @@ class MemeService {
       };
     } catch (error) {
       console.error('Ошибка при получении мема:', error.message);
-      // В случае ошибки возвращаем дефолтный мем
       return this.getDefaultMeme();
     }
   }

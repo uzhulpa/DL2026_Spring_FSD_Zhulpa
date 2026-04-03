@@ -59,7 +59,8 @@ const start = async () => {
     }
 };
 
-//fillWeatherCategories();
-//fillMemes();
+// начальное заполнение бд
+fillWeatherCategories();
+fillMemes();
 
 start();
